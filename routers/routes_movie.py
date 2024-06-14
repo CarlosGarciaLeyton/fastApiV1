@@ -5,6 +5,7 @@ from bd.database import SessionLocal, get_db
 from user_jwt import validateToken
 from sqlalchemy.orm import Session
 from schemas.schemas import MovieSchema, Response, MovieSchema
+from fastapi.encoders import jsonable_encoder
 
 from bd import crud
 
@@ -44,7 +45,7 @@ async def create_movie_service(request: MovieSchema, db: Session = Depends(get_d
 @router.get("/")
 async def get_movies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db), dependencies=[Depends(BearerJWT())]):
     _movies = crud.get_movie(db, skip, limit)
-    return Response(status="Ok", code="200", message="Resultados obtenidos", result=_movies)
+    return Response(status="Ok", code="200", message="Resultados obtenidos", result=jsonable_encoder(_movies))
 
 
 @router.patch("/update")
@@ -52,7 +53,7 @@ async def update_movies(request: MovieSchema, db: Session = Depends(get_db)):
     try:
         _movie = crud.update_movies(db, movies_id=request.id, title=request.title, overview=request.overview,
                                     year=request.year, rating=request.rating, category=request.category)
-        return Response(status="Ok", code="200", message="Resultados obtenidos", result=_movie)
+        return Response(status="Ok", code="200", message="Resultados obtenidos", result=jsonable_encoder(_movie))
     except Exception as e:
         return Response(
             status="malo",
@@ -65,7 +66,8 @@ async def update_movies(request: MovieSchema, db: Session = Depends(get_db)):
 async def delete_movie(movie_id: int, db: Session = Depends(get_db)):
     try:
         _movie = crud.remove_movies(db, _movie=movie_id)
-        return Response(status="Ok", code="200", message="Pelicula borrada correctamente", result=_movie)
+        return Response(status="Ok", code="200", message="Pelicula borrada correctamente", result=jsonable_encoder(_movie))
+    
     except Exception as e:
         return Response(
             status="malo",

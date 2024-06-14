@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from pydantic import BaseModel
 from bd.database import engine, Base
-from routers.movie import routerMovie
+from routers.moviessss import routerMovie
 from routers.users import login_user
 import uvicorn
 import os
@@ -21,7 +21,7 @@ app.include_router(routerMovie)
 Base.metadata.create_all(bind=engine)
 
 
-if __name__ == '__main__':
+'''if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run ("main:app", host="127.0.0.1", port=port)
+    uvicorn.run ("main:app", host="127.0.0.1", port=port)'''
 
