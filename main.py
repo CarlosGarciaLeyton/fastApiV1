@@ -2,26 +2,19 @@
 from fastapi import FastAPI
 import uvicorn
 
-import models.movie as model
-from bd.database import engine
-from routers.routes_movie import router as router_crud
-from routers.users import login_user
+import app.models.movie as model
+from app.bd.database import engine
+from app.routers.routes_movie import router as router_crud
+from app.routers.users import login_user
 
 model.Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI(
-    title="API FACIL",
+    title="API CRUD",
     description="uso de crud con apis",
     version="1.0.0"
 )
-
-
-'''@app.get("/")
-def hello_world():
-    return {
-        "msg": "Hola Mundo"
-    }'''
 
 
 app.include_router(router=login_user, tags=["LOGIN"], prefix="/movies")

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
-from user_jwt import createToken
+from app.user_jwt import createToken
 
 login_user = APIRouter(
     prefix='/v1/api'

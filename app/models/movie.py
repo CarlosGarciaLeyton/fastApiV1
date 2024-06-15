@@ -1,6 +1,6 @@
-from bd.database import Base
-
 from sqlalchemy import Column, Integer, String, Float, orm
+
+from app.bd.database import Base
 
 
 

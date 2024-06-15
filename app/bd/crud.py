@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session #La sesion de la BD
-from models.movie import Movie #El modelo ORM de nuestra BD
-from schemas.schemas import MovieSchema #El esquema del JSON
+from app.models.movie import Movie #El modelo ORM de nuestra BD
+from app.schemas.schemas import MovieSchema #El esquema del JSON
 
 #creamos la funcion para obtener todas las peliculas
 def get_movie(db:Session, skip:int =0, limit:int=100):

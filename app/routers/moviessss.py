@@ -4,10 +4,10 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 from typing import Optional
 from fastapi.security import HTTPBearer
-from models.movie import Movie as ModelMovie
+from app.models.movie import Movie as ModelMovie
 from fastapi.encoders import jsonable_encoder
 from fastapi import APIRouter
-from user_jwt import validateToken
+from app.user_jwt import validateToken
 from sqlalchemy.orm import Session
 
 

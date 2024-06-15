@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException, Path, Request
 from fastapi import Depends
 from fastapi.security import HTTPBearer
-from bd.database import SessionLocal, get_db
-from user_jwt import validateToken
+from app.bd.database import SessionLocal, get_db
+from app.user_jwt import validateToken
 from sqlalchemy.orm import Session
-from schemas.schemas import MovieSchema, Response, MovieSchema
+from app.schemas.schemas import MovieSchema, Response, MovieSchema
 from fastapi.encoders import jsonable_encoder
 
-from bd import crud
+from app.bd import crud
 
 #Creamos un router, que es un conjunto de rutas agrupadas
 router = APIRouter(
