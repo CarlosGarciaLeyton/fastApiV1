@@ -35,7 +35,6 @@ class BearerJWT(HTTPBearer):
 @router.post("/create")
 async def create_movie_service(request: MovieSchema, db: Session = Depends(get_db)):
     crud.create_movie(db, movie=request)
-    print(request)
     return Response(status="Ok", code="200", message="Pelicula creada correctamente", result=request).dict(
         exclude_none=True)
 
@@ -45,23 +44,12 @@ async def create_movie_service(request: MovieSchema, db: Session = Depends(get_d
 async def get_movies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
                      dependencies=[Depends(BearerJWT())]):
     _movies = crud.get_movie(db, skip, limit)
-    '''if not _movies: #opcion 1
-        return Response(status="NoOk", code="200", message="Lista vacia", result=f"Lista vacia")
-
-    else:
-        return Response(status="Ok", code="200", message="Resultados obtenidos", result=jsonable_encoder(_movies))'''
-    '''if _movies == []: #opcion 2 menos buena
-        return Response(status="NoOk", code="200", message="Lista vacia", result=f"Lista vacia")
-
-    else:
-        return Response(status="Ok", code="200", message="Resultados obtenidos", result=jsonable_encoder(_movies))'''
-
-    if len(_movies) == 0 or _movies.isnull():  # opcion 3
+    if not _movies: #opcion 1
         return Response(status="NoOk", code="200", message="Lista vacia", result=f"Lista vacia")
 
     else:
         return Response(status="Ok", code="200", message="Resultados obtenidos", result=jsonable_encoder(_movies))
-
+    
 
 @router.patch("/update")
 async def update_movies(request: MovieSchema, db: Session = Depends(get_db)):

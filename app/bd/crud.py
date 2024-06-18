@@ -5,7 +5,6 @@ from app.schemas.schemas import MovieSchema  #El esquema del JSON
 
 #creamos la funcion para obtener todas las peliculas
 def get_movie(db: Session, skip: int = 0, limit: int = 100):
-    print(db.query(Movie).offset(skip).limit(limit).all())
     return db.query(Movie).offset(skip).limit(limit).all()
 
 
@@ -16,7 +15,6 @@ def get_movie(db: Session, skip: int = 0, limit: int = 100):
 
 
 def get_movies_by_id(db: Session, movies_id: int):
-    print(db.query(Movie).filter(Movie.id == movies_id).first())
     return db.query(Movie).filter(Movie.id == movies_id).first()
 
 
@@ -44,7 +42,6 @@ def create_movie(db: Session, movie: MovieSchema):
 
 def remove_movies(db: Session, movies_id: int):
     _movies = get_movies_by_id(db=db, movies_id=movies_id)
-    print(f"aca esta movies", _movies)
     db.delete(_movies)
     db.commit()
     db.refresh(_movies)
