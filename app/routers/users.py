@@ -17,5 +17,4 @@ class User(BaseModel):
 def login(user: User):
     if user.email == 'jcarlosgarcial@outlook.com' and user.password == '123456':
         token: str = createToken(user.model_dump())
-        print(token)
         return JSONResponse(content=token)
